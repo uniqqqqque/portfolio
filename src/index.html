@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Deniss Poliscuks</title>
-    <meta
-      name="description"
-      content="Portfolio of Deniss Poliscuks — Web Developer, DevOps Engineer, 3D Artist"
-    />
+    <meta name="description" content="Portfolio of Deniss Poliscuks" />
 
     <script
       defer
@@ -17,8 +14,12 @@
 
     <link href="output.css" rel="stylesheet" />
     <link href="vendor/aos.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      rel="stylesheet"
+    />
     <style>
-      /* Local fonts */
+      /* fonts */
       @font-face {
         font-family: "Syne";
         font-style: normal;
@@ -120,7 +121,7 @@
         color: var(--accent);
       }
 
-      /* Background layers */
+      /* background */
       .hero-bg {
         position: fixed;
         inset: 0;
@@ -162,7 +163,7 @@
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
       }
 
-      /* Page load fade-in */
+      /* page enter */
       @keyframes pageEnter {
         from {
           opacity: 0;
@@ -180,7 +181,7 @@
         animation: pageEnter 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
       }
 
-      /* Typed cursor */
+      /* typed cursor */
       .typed-cursor {
         color: var(--accent);
         font-weight: 400;
@@ -197,7 +198,7 @@
         }
       }
 
-      /* Mobile adjustments */
+      /* responsive */
       @media (max-width: 640px) {
         .hero-heading {
           font-size: 2.8rem;
@@ -223,7 +224,53 @@
         }
       }
 
-      /* ── Linktree-style link cards ── */
+      /* scroll indicator */
+      .scroll-hint {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        padding-bottom: 3rem;
+        margin-top: -10rem;
+        animation: scrollPulse 2.4s ease-in-out infinite;
+      }
+
+      .scroll-hint__line {
+        display: block;
+        width: 1px;
+        height: 100px;
+        background: linear-gradient(
+          to bottom,
+          rgba(100, 255, 218, 0.4),
+          rgba(100, 255, 218, 0.85)
+        );
+      }
+
+      .scroll-hint__arrow {
+        width: 12px;
+        height: 12px;
+        border-right: 1px solid rgba(100, 255, 218, 0.85);
+        border-bottom: 1px solid rgba(100, 255, 218, 0.85);
+        transform: rotate(45deg);
+        margin-top: -1px;
+      }
+
+      @keyframes scrollPulse {
+        0% {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        40% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+      }
+
+      /* link cards */
       .link-card {
         display: flex;
         align-items: center;
@@ -251,8 +298,9 @@
       }
 
       .link-card__icon {
-        width: 1.25rem;
-        height: 1.25rem;
+        font-size: 1.1rem;
+        width: 1.5rem;
+        text-align: center;
         flex-shrink: 0;
         color: var(--accent);
       }
@@ -261,11 +309,11 @@
         flex: 1;
         font-size: 0.95rem;
         letter-spacing: 0.04em;
+        text-align: center;
       }
 
       .link-card__arrow {
-        width: 1rem;
-        height: 1rem;
+        font-size: 0.75rem;
         flex-shrink: 0;
         opacity: 0.4;
         transition:
@@ -320,42 +368,53 @@
         </div>
       </section>
 
-      <!-- ── Linktree-style links ── -->
-      <section class="flex flex-col items-center gap-4 pb-24 px-8">
-        <!-- One link card — copy this block to add more -->
+      <div class="scroll-hint" aria-hidden="true">
+        <span class="scroll-hint__line"></span>
+        <span class="scroll-hint__arrow"></span>
+      </div>
+
+      <!-- links -->
+      <section class="flex flex-col items-center gap-4 pb-64 px-8">
         <a
           href="https://github.com/uniqqqqque"
           target="_blank"
           rel="noopener noreferrer"
           class="link-card"
         >
-          <!-- Icon -->
-          <svg
-            class="link-card__icon"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.744 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"
-            />
-          </svg>
-          <!-- Label -->
+          <i class="fa-brands fa-github link-card__icon"></i>
           <span class="link-card__label">GitHub</span>
-          <!-- Arrow -->
-          <svg
-            class="link-card__arrow"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            aria-hidden="true"
-          >
-            <path d="M7 17L17 7M17 7H7M17 7v10" />
-          </svg>
+          <i class="fa-solid fa-up-right-from-square link-card__arrow"></i>
+        </a>
+
+        <a href="https://linkedin.com/in/deniss-poliscuks" class="link-card">
+          <i class="fa-brands fa-linkedin link-card__icon"></i>
+          <span class="link-card__label">LinkedIn</span>
+          <i class="fa-solid fa-up-right-from-square link-card__arrow"></i>
+        </a>
+
+        <a href="https://t.me/uniqqqqque" class="link-card">
+          <i class="fa-brands fa-telegram link-card__icon"></i>
+          <span class="link-card__label">Telegram</span>
+          <i class="fa-solid fa-up-right-from-square link-card__arrow"></i>
+        </a>
+
+        <a
+          href="https://discordapp.com/users/324561169853710357"
+          class="link-card"
+        >
+          <i class="fa-brands fa-discord link-card__icon"></i>
+          <span class="link-card__label">Discord</span>
+          <i class="fa-solid fa-up-right-from-square link-card__arrow"></i>
+        </a>
+
+        <a href="https://steamcommunity.com/id/uniqqqqque/" class="link-card">
+          <i class="fa-brands fa-steam link-card__icon"></i>
+          <span class="link-card__label">Steam</span>
+          <i class="fa-solid fa-up-right-from-square link-card__arrow"></i>
         </a>
       </section>
-      <!-- ── /Linktree-style links ── -->
+
+      <div style="height: 40vh"></div>
     </div>
 
     <script src="vendor/aos.js"></script>
