@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --minify && npx copyfiles -u 1 \"src/**/*.html\" \"src/**/*.txt\" \"src/**/*.xml\" \"src/vendor/**\" \"src/fonts/**\" dist",
+    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --minify && npx copyfiles -u 1 \"src/**/*.html\" \"src/**/*.txt\" \"src/**/*.xml\" \"src/**/*.svg\" \"src/vendor/**\" \"src/fonts/**\" dist",
     "watch": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --watch"
   },
   "dependencies": {
