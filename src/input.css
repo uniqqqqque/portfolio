@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@source not "./favicon.svg";
+@source not "../dist";
 
 /* IBM Plex Sans, subset to Latin + Latvian, renamed per OFL (fonts/OFL.txt) */
 @font-face {
