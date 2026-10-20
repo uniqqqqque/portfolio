@@ -1,20 +1,26 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 - Page not found</title>
-    <link href="output.css" rel="stylesheet" />
+    <title>Page not found · Deniss Poliščuks</title>
+    <meta name="theme-color" content="#111110" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/fonts/text.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link href="/output.css" rel="stylesheet" />
   </head>
-  <body
-    class="bg-gray-900 text-white min-h-screen flex items-center justify-center"
-  >
-    <div class="text-center">
-      <h1 class="text-8xl font-bold mb-4">404</h1>
-      <p class="text-xl text-gray-400 mb-6">Page not found</p>
-      <a href="/" class="text-blue-400 hover:text-blue-300 underline"
-        >To main</a
-      >
-    </div>
+  <body>
+    <main class="not-found">
+      <h1 class="not-found__code rise">404</h1>
+      <p class="not-found__text rise" style="--i: 1">
+        Nothing here. <a href="/">Back to the main page</a>
+      </p>
+    </main>
   </body>
 </html>

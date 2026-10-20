@@ -1,1 +1,235 @@
 @import "tailwindcss";
+
+/* IBM Plex Sans, subset to Latin + Latvian, renamed per OFL (fonts/OFL.txt) */
+@font-face {
+  font-family: "Poliscuks Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("fonts/text.woff2") format("woff2");
+}
+
+:root {
+  --ground: #111110;
+  --surface: #1c1b19;
+  --ink: #e9e9e6;
+  --muted: #a3a097;
+  --accent: #ffb000;
+  --on-accent: #111110;
+
+  --margin: clamp(1rem, 3vw, 2.5rem);
+  --gap-section: clamp(6rem, 12vw, 11rem);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: dark;
+}
+
+html {
+  background: var(--ground);
+}
+
+body {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--margin);
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "Poliscuks Sans", ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* layout */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 1.5rem;
+}
+
+.section-body {
+  grid-column: 5 / -1;
+}
+
+/* hero */
+.hero {
+  padding-top: clamp(4rem, 14vh, 9rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.hero__name {
+  font-size: clamp(3.5rem, 13.3vw, 16rem);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  margin-left: -0.05em;
+}
+
+.hero__lead {
+  grid-column: 1 / span 4;
+  max-width: 22ch;
+  font-size: clamp(1.375rem, 2.2vw, 2rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+/* links */
+.links {
+  padding-bottom: var(--gap-section);
+}
+
+.links__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.link-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: baseline;
+  column-gap: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  transition:
+    background-color 160ms var(--ease-out),
+    color 160ms var(--ease-out);
+}
+
+.link-row__name {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.link-row__handle {
+  color: var(--muted);
+  transition: color 160ms var(--ease-out);
+}
+
+.link-row__arrow {
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: transform 200ms var(--ease-out);
+}
+
+.link-row:hover,
+.link-row:focus-visible {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.link-row:hover .link-row__handle,
+.link-row:focus-visible .link-row__handle {
+  color: var(--on-accent);
+}
+
+.link-row:hover .link-row__arrow {
+  transform: translate(3px, -3px);
+}
+
+.link-row:active {
+  transform: scale(0.995);
+}
+
+/* footer */
+.footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2rem 0 var(--margin);
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* 404 */
+.not-found {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 0;
+}
+
+.not-found__code {
+  font-size: clamp(6rem, 26vw, 22rem);
+  font-weight: 600;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  margin-left: -0.06em;
+}
+
+.not-found__text {
+  margin-top: 2rem;
+  font-size: clamp(1.375rem, 2.2vw, 2rem);
+}
+
+.not-found__text a {
+  color: var(--accent);
+  text-underline-offset: 0.15em;
+}
+
+/* entrance: CSS only, content is never hidden without it */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.rise {
+  animation: rise 700ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+  .link-row,
+  .link-row__arrow,
+  .link-row__handle {
+    transition: none;
+  }
+}
+
+/* phone */
+@media (max-width: 760px) {
+  .section-body,
+  .hero__lead {
+    grid-column: 1 / -1;
+  }
+  .hero__lead {
+    margin-bottom: 2.5rem;
+  }
+  .link-row {
+    grid-template-columns: 1fr auto;
+    padding: 1.1rem 1.1rem;
+  }
+  .link-row__handle {
+    grid-row: 2;
+    grid-column: 1;
+    font-size: 1rem;
+  }
+  .link-row__arrow {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    align-self: center;
+  }
+}

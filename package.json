@@ -4,13 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --minify && npx copyfiles -u 1 \"src/**/*.html\" \"src/**/*.txt\" \"src/**/*.xml\" \"src/**/*.svg\" \"src/vendor/**\" \"src/fonts/**\" dist",
+    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --minify && npx copyfiles -u 1 \"src/**/*.html\" \"src/**/*.txt\" \"src/**/*.xml\" \"src/**/*.svg\" \"src/fonts/**\" dist",
     "watch": "npx @tailwindcss/cli -i ./src/input.css -o ./dist/output.css --watch"
   },
   "dependencies": {
-    "aos": "^2.3.4",
-    "tailwindcss": "^4.2.1",
-    "typed.js": "^3.0.0"
+    "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
     "copyfiles": "^2.4.1"

@@ -3,8 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deniss Poliscuks</title>
-    <meta name="description" content="Portfolio of Deniss Poliscuks" />
+    <title>Deniss Poliščuks</title>
+    <meta
+      name="description"
+      content="Deniss Poliščuks builds websites, teaches and studies at Rīgas Tehniskā koledža."
+    />
+    <meta name="theme-color" content="#111110" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
     <!-- umami monitoring -->
@@ -14,449 +18,91 @@
       data-website-id="fe21c19c-472d-4ff9-981c-48ad2e53f897"
     ></script>
 
-    <link href="output.css" rel="stylesheet" />
-    <link href="vendor/aos.css" rel="stylesheet" />
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      rel="stylesheet"
+      rel="preload"
+      href="fonts/text.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
-    <style>
-      /* fonts */
-      @font-face {
-        font-family: "Syne";
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url("fonts/syne-latin-ext.woff2") format("woff2");
-        unicode-range:
-          U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
-          U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
-          U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-      }
-      @font-face {
-        font-family: "Syne";
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url("fonts/syne-latin.woff2") format("woff2");
-        unicode-range:
-          U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-          U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-          U+2212, U+2215, U+FEFF, U+FFFD;
-      }
-      @font-face {
-        font-family: "Syne";
-        font-style: normal;
-        font-weight: 800;
-        font-display: swap;
-        src: url("fonts/syne-latin-ext.woff2") format("woff2");
-        unicode-range:
-          U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
-          U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
-          U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-      }
-      @font-face {
-        font-family: "Syne";
-        font-style: normal;
-        font-weight: 800;
-        font-display: swap;
-        src: url("fonts/syne-latin.woff2") format("woff2");
-        unicode-range:
-          U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-          U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-          U+2212, U+2215, U+FEFF, U+FFFD;
-      }
-      @font-face {
-        font-family: "Space Mono";
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url("fonts/space-mono-latin-ext.woff2") format("woff2");
-        unicode-range:
-          U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
-          U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
-          U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-      }
-      @font-face {
-        font-family: "Space Mono";
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url("fonts/space-mono-latin.woff2") format("woff2");
-        unicode-range:
-          U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-          U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-          U+2212, U+2215, U+FEFF, U+FFFD;
-      }
-
-      :root {
-        --accent: #64ffda;
-        --bg-deep: #0a0f1c;
-        --text-primary: #e2e8f0;
-        --text-muted: #64748b;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        font-family: "Syne", sans-serif;
-        background: var(--bg-deep);
-        color: var(--text-primary);
-        overflow-x: hidden;
-        line-height: 1.85;
-      }
-
-      .font-mono {
-        font-family: "Space Mono", monospace;
-      }
-
-      ::selection {
-        background: rgba(100, 255, 218, 0.2);
-        color: var(--accent);
-      }
-
-      /* background */
-      .hero-bg {
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        background:
-          radial-gradient(
-            ellipse 80% 50% at 20% 40%,
-            rgba(100, 255, 218, 0.06) 0%,
-            transparent 60%
-          ),
-          radial-gradient(
-            ellipse 60% 40% at 80% 20%,
-            rgba(99, 102, 241, 0.08) 0%,
-            transparent 60%
-          ),
-          radial-gradient(
-            ellipse 50% 60% at 60% 80%,
-            rgba(236, 72, 153, 0.05) 0%,
-            transparent 60%
-          );
-      }
-
-      .grid-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        background-image:
-          linear-gradient(rgba(100, 255, 218, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(100, 255, 218, 0.03) 1px, transparent 1px);
-        background-size: 60px 60px;
-      }
-
-      .noise {
-        position: fixed;
-        inset: 0;
-        z-index: 1;
-        opacity: 0.35;
-        pointer-events: none;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      }
-
-      /* page enter */
-      @keyframes pageEnter {
-        from {
-          opacity: 0;
-          transform: translateY(12px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .content {
-        position: relative;
-        z-index: 2;
-        animation: pageEnter 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
-      }
-
-      /* typed cursor */
-      .typed-cursor {
-        color: var(--accent);
-        font-weight: 400;
-        animation: blink 1s infinite;
-      }
-
-      @keyframes blink {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0;
-        }
-      }
-
-      /* responsive */
-      @media (max-width: 640px) {
-        .hero-heading {
-          font-size: 2.8rem;
-          line-height: 1.15;
-          margin-bottom: 1.5rem;
-        }
-        .hero-greeting {
-          font-size: 0.8rem;
-          margin-bottom: 2rem;
-        }
-        .hero-typed {
-          font-size: 1rem;
-        }
-        .hero-section {
-          padding-left: 1.25rem;
-          padding-right: 1.25rem;
-        }
-      }
-
-      @media (min-width: 641px) and (max-width: 1024px) {
-        .hero-heading {
-          font-size: 5rem;
-        }
-      }
-
-      /* scroll indicator */
-      .scroll-hint {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-        padding-bottom: 3rem;
-        margin-top: -10rem;
-        animation: scrollPulse 2.4s ease-in-out infinite;
-      }
-
-      .scroll-hint__line {
-        display: block;
-        width: 1px;
-        height: 100px;
-        background: linear-gradient(
-          to bottom,
-          rgba(100, 255, 218, 0.4),
-          rgba(100, 255, 218, 0.85)
-        );
-      }
-
-      .scroll-hint__arrow {
-        width: 12px;
-        height: 12px;
-        border-right: 1px solid rgba(100, 255, 218, 0.85);
-        border-bottom: 1px solid rgba(100, 255, 218, 0.85);
-        transform: rotate(45deg);
-        margin-top: -1px;
-      }
-
-      @keyframes scrollPulse {
-        0% {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-        40% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        100% {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-      }
-
-      /* link cards */
-      .links-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-        padding: 0 2rem 16rem;
-      }
-      .link-card {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        width: 100%;
-        max-width: 420px;
-        padding: 1rem 1.25rem;
-        border: 1px solid rgba(100, 255, 218, 0.15);
-        border-radius: 0.75rem;
-        background: rgba(100, 255, 218, 0.04);
-        color: var(--text-primary);
-        text-decoration: none;
-        font-family: "Syne", sans-serif;
-        transition:
-          border-color 0.25s ease,
-          background 0.25s ease,
-          transform 0.2s ease;
-      }
-
-      .link-card:hover {
-        border-color: rgba(100, 255, 218, 0.5);
-        background: rgba(100, 255, 218, 0.08);
-        transform: translateY(-2px);
-        color: var(--accent);
-      }
-
-      .link-card__icon {
-        font-size: 1.1rem;
-        width: 1.5rem;
-        text-align: center;
-        flex-shrink: 0;
-        color: var(--accent);
-      }
-
-      .link-card__label {
-        flex: 1;
-        font-size: 0.95rem;
-        letter-spacing: 0.04em;
-        text-align: center;
-      }
-
-      .link-card__arrow {
-        font-size: 0.75rem;
-        flex-shrink: 0;
-        opacity: 0.4;
-        transition:
-          opacity 0.25s ease,
-          transform 0.25s ease;
-      }
-
-      .link-card:hover .link-card__arrow {
-        opacity: 1;
-        transform: translate(2px, -2px);
-      }
-    </style>
+    <link href="output.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="hero-bg"></div>
-    <div class="grid-overlay"></div>
-    <div class="noise"></div>
+    <main>
+      <header class="hero">
+        <h1 class="hero__name rise">Deniss Poliščuks</h1>
+      </header>
 
-    <div class="content">
-      <section
-        class="min-h-screen flex items-center justify-center px-8 hero-section"
-      >
-        <div class="max-w-4xl mx-auto text-center">
-          <div data-aos="fade-up" data-aos-duration="1400">
-            <p
-              class="font-mono text-base mb-12 tracking-widest hero-greeting"
-              style="color: var(--accent)"
+      <section class="links grid-12" aria-label="Links">
+        <p class="hero__lead rise" style="--i: 1">
+          I build websites, teach, and study at Rīgas Tehniskā koledža.
+        </p>
+        <ul class="links__list section-body" role="list">
+          <li class="rise" style="--i: 2">
+            <a class="link-row" href="https://github.com/uniqqqqque" rel="me">
+              <span class="link-row__name">GitHub</span>
+              <span class="link-row__handle">uniqqqqque</span>
+              <span class="link-row__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="rise" style="--i: 3">
+            <a
+              class="link-row"
+              href="https://linkedin.com/in/deniss-poliscuks"
+              rel="me"
             >
-              &gt; Hello, world. I'm
-            </p>
-          </div>
-
-          <div data-aos="fade-up" data-aos-duration="1400" data-aos-delay="250">
-            <h1
-              class="text-7xl md:text-9xl font-extrabold leading-tight mb-10 tracking-tight hero-heading"
+              <span class="link-row__name">LinkedIn</span>
+              <span class="link-row__handle">deniss-poliscuks</span>
+              <span class="link-row__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="rise" style="--i: 4">
+            <a class="link-row" href="https://t.me/uniqqqqque" rel="me">
+              <span class="link-row__name">Telegram</span>
+              <span class="link-row__handle">@uniqqqqque</span>
+              <span class="link-row__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="rise" style="--i: 5">
+            <a
+              class="link-row"
+              href="https://discordapp.com/users/324561169853710357"
+              rel="me"
             >
-              Deniss<br />
-              <span style="color: var(--accent)">Poliščuks</span>
-            </h1>
-          </div>
-
-          <div data-aos="fade-up" data-aos-duration="1400" data-aos-delay="500">
-            <div class="flex items-center justify-center gap-4 mb-14">
-              <p
-                class="font-mono text-xl hero-typed"
-                style="color: var(--text-muted)"
-              >
-                <span id="typed-output"></span>
-              </p>
-            </div>
-          </div>
-        </div>
+              <span class="link-row__name">Discord</span>
+              <span class="link-row__handle">profile</span>
+              <span class="link-row__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="rise" style="--i: 6">
+            <a
+              class="link-row"
+              href="https://steamcommunity.com/id/uniqqqqque/"
+              rel="me"
+            >
+              <span class="link-row__name">Steam</span>
+              <span class="link-row__handle">uniqqqqque</span>
+              <span class="link-row__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+          <li class="rise" style="--i: 7">
+            <a
+              class="link-row"
+              href="https://buymeacoffee.com/denisspoliscuks"
+              rel="me"
+            >
+              <span class="link-row__name">Buy Me a Coffee</span>
+              <span class="link-row__handle">denisspoliscuks</span>
+              <span class="link-row__arrow" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        </ul>
       </section>
+    </main>
 
-      <div class="scroll-hint" aria-hidden="true">
-        <span class="scroll-hint__line"></span>
-        <span class="scroll-hint__arrow"></span>
-      </div>
-
-      <!-- links -->
-      <section class="links-section">
-        <a
-          href="https://github.com/uniqqqqque"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="link-card"
-        >
-          <i class="fa-brands fa-github link-card__icon"></i>
-          <span class="link-card__label">GitHub</span>
-          <i class="fa-solid fa-up-right-from-square link-card__arrow"></i>
-        </a>
-
-        <a href="https://linkedin.com/in/deniss-poliscuks" class="link-card">
-          <i class="fa-brands fa-linkedin link-card__icon"></i>
-          <span class="link-card__label">LinkedIn</span>
-          <i class="fa-solid fa-up-right-from-square link-card__arrow"></i>
-        </a>
-
-        <a href="https://t.me/uniqqqqque" class="link-card">
-          <i class="fa-brands fa-telegram link-card__icon"></i>
-          <span class="link-card__label">Telegram</span>
-          <i class="fa-solid fa-up-right-from-square link-card__arrow"></i>
-        </a>
-
-        <a
-          href="https://discordapp.com/users/324561169853710357"
-          class="link-card"
-        >
-          <i class="fa-brands fa-discord link-card__icon"></i>
-          <span class="link-card__label">Discord</span>
-          <i class="fa-solid fa-up-right-from-square link-card__arrow"></i>
-        </a>
-
-        <a href="https://steamcommunity.com/id/uniqqqqque/" class="link-card">
-          <i class="fa-brands fa-steam link-card__icon"></i>
-          <span class="link-card__label">Steam</span>
-          <i class="fa-solid fa-up-right-from-square link-card__arrow"></i>
-        </a>
-      </section>
-
-      <div style="height: 20vh"></div>
-    </div>
-
-    <script src="vendor/aos.js"></script>
-    <script src="vendor/typed.umd.js"></script>
-    <script>
-      AOS.init({
-        duration: 1200,
-        once: true,
-        offset: 60,
-        easing: "ease-out-quart",
-      });
-
-      setTimeout(() => {
-        new Typed("#typed-output", {
-          strings: [
-            "I build websites.",
-            "I work as a teacher.",
-            "I study at Rīgas Tehniskā koledža.",
-            "I'm using VS Code.",
-            "I create 3D models.",
-            "I run an Ubuntu server.",
-            "I play Factorio.",
-            "I write Python automation scripts.",
-            "I automate everything.",
-            "I'm in love with Diana.",
-          ],
-          typeSpeed: 50,
-          backSpeed: 30,
-          backDelay: 2000,
-          loop: true,
-          cursorChar: "▌",
-        });
-      }, 1000);
-    </script>
+    <footer class="footer">
+      <span>© 2026 Deniss Poliščuks</span>
+      <span>poliscuks.id.lv</span>
+    </footer>
   </body>
 </html>
