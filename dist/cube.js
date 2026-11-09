@@ -6,8 +6,12 @@
    Drawn the way the old spinning ASCII donut is: every surface is
    sampled as a cloud of points, each point is projected onto the
    character grid, and a z-buffer keeps the nearest one per cell.
-   The light on a point picks its character, from "." (turned
-   away) to "@" (facing the light).
+
+   There is no lighting. Each face of the cube has its own
+   character, and a sticker carries that character wherever the
+   turns take it: the dotted face is dots on whichever side it
+   ends up, so the eye can follow the pieces rather than watch the
+   shading change.
 
    Each of the 26 visible cubies is a block of "black plastic"
    with an inset sticker on each outer face. That is what gives
@@ -39,16 +43,9 @@
   const ASPECT = 0.6 / 1.1;
   const DIST = 11; /* camera distance, in cubie widths */
   const SCALE = 14.8 * DIST; /* columns per unit at the cube's centre */
-  const RAMP = ".,-~:;=!*#$@";
   /* point spacing on a face: under half a cell at this scale, so
      a face never shows holes */
   const STEP = 0.03;
-  const LIGHT = norm([-0.45, 0.65, -0.6]);
-
-  function norm(v) {
-    const l = Math.hypot(v[0], v[1], v[2]);
-    return [v[0] / l, v[1] / l, v[2] / l];
-  }
 
   /* 3×3 matrices as flat arrays of nine, row by row */
   const I = [1, 0, 0, 0, 1, 0, 0, 0, 1];
@@ -79,10 +76,10 @@
      page opens, turned away from the light) is the accent one. */
   const ACCENT = 0;
   const TONE = { [ACCENT]: 1 };
-  /* a coloured sticker never drops below ";" in the ramp: in
-     shadow it would otherwise be a field of dots, and the colour
-     is the point of it */
-  const TINTED_MIN = 5;
+  /* one character per face, faces 0..5 = +x -x +y -y +z -z. The
+     three seen at the start keep the characters they had when the
+     cube was lit: dots on the right, "$" on top, ";" on the left */
+  const GLYPHS = ".#$=*;";
   const cubies = [];
   for (let x = -1; x <= 1; x++)
     for (let y = -1; y <= 1; y++)
@@ -192,12 +189,9 @@
           const ctr = apply(A, facePoint(a, s, 0.5, 0, 0));
           if (nW[0] * (ctr[0] + b[0]) + nW[1] * (ctr[1] + b[1]) + nW[2] * (ctr[2] + b[2] + DIST) >= 0) continue;
 
-          const lum = Math.max(0, nW[0] * LIGHT[0] + nW[1] * LIGHT[1] + nW[2] * LIGHT[2]);
           const sticker = outer ? c.stickers.find((k) => k.a === a && k.s === s) : null;
           const tint = sticker ? TONE[sticker.face] ?? 0 : 0;
-          let level = Math.min(RAMP.length - 1, Math.floor(lum * RAMP.length));
-          if (tint) level = Math.max(level, TINTED_MIN);
-          const ch = RAMP[level];
+          const ch = sticker ? GLYPHS[sticker.face] : " ";
 
           const plot = (pts, depth, glyph, t) => {
             for (const [u, v] of pts) {
