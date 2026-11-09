@@ -10,11 +10,13 @@
    away) to "@" (facing the light).
 
    Each of the 26 visible cubies is a block of "black plastic"
-   (cells drawn blank, but still in the z-buffer so it hides what
-   is behind it) with an inset sticker on each outer face. That is
-   what gives the grid lines between stickers, and what keeps the
-   back of the cube from showing through the gap while a layer is
-   half-turned.
+   with an inset sticker on each outer face. That is what gives
+   the grid lines between stickers, and what keeps the back of the
+   cube from showing through the gap while a layer is half-turned.
+   The plastic is drawn as a faint "·" rather than left blank: as
+   blank cells the seams read as holes in the cube, worst on a
+   face seen at an angle, where a seam comes out as a ragged empty
+   stripe.
 
    Two faces are coloured: orange (the site's accent) and yellow,
    on opposite sides. The other four stay in ink: in characters,
@@ -82,6 +84,7 @@
   const ORANGE = 3;
   const YELLOW = 0;
   const TONE = { [ORANGE]: 1, [YELLOW]: 2 };
+  const PLASTIC = 3;
   /* a coloured sticker never drops below ";" in the ramp: in
      shadow it would otherwise be a field of dots, and the colour
      is the point of it */
@@ -99,11 +102,15 @@
         cubies.push({ pos, R: I.slice(), stickers });
       }
 
-  /* point offsets across one face, in the face's own (u, v) */
+  /* point offsets across one face, in the face's own (u, v).
+     Counted, not stepped: adding STEP up from -half drifts and
+     stopped one step short of +half, which left a sliver between
+     two cubies that showed as the odd empty cell. */
   const grid = (half) => {
+    const n = Math.ceil((2 * half) / STEP);
     const pts = [];
-    for (let u = -half; u <= half + 1e-9; u += STEP)
-      for (let v = -half; v <= half + 1e-9; v += STEP) pts.push([u, v]);
+    for (let i = 0; i <= n; i++)
+      for (let j = 0; j <= n; j++) pts.push([-half + (2 * half * i) / n, -half + (2 * half * j) / n]);
     return pts;
   };
   const BODY = grid(0.5);
@@ -209,13 +216,13 @@
               if (z < zbuf[i]) { zbuf[i] = z; chars[i] = glyph; tone[i] = t; }
             }
           };
-          plot(sticker ? RING : BODY, 0.5, " ", 0);
+          plot(sticker ? RING : BODY, 0.5, "·", PLASTIC);
           if (sticker) plot(STICKER, 0.51, ch, tint);
         }
     }
 
     /* runs of the same tone become one span, not one per cell */
-    const wrap = (t, run) => (t ? `<span class="${t === 1 ? "o" : "y"}">${run}</span>` : run);
+    const wrap = (t, run) => (t ? `<span class="${["", "o", "y", "p"][t]}">${run}</span>` : run);
     let html = "";
     for (let r = 0; r < ROWS; r++) {
       let run = "", t = 0;

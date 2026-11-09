@@ -164,6 +164,12 @@ a:focus-visible {
   color: #f4e04d;
 }
 
+/* the black plastic between stickers: just above the ground, so
+   the cube reads as solid and the seams as a faint grid */
+.cube .p {
+  color: #3a3934;
+}
+
 /* links */
 .links {
   padding-bottom: var(--gap-section);
