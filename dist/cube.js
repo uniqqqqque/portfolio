@@ -13,10 +13,8 @@
    with an inset sticker on each outer face. That is what gives
    the grid lines between stickers, and what keeps the back of the
    cube from showing through the gap while a layer is half-turned.
-   The plastic is drawn as a faint "·" rather than left blank: as
-   blank cells the seams read as holes in the cube, worst on a
-   face seen at an angle, where a seam comes out as a ragged empty
-   stripe.
+   The plastic is drawn as blank cells, but they still go in the
+   z-buffer, so it hides whatever is behind it.
 
    One face is coloured, in the site's accent. The other five stay
    in ink: in characters, six colours would be noise, and one is
@@ -81,7 +79,6 @@
      page opens, turned away from the light) is the accent one. */
   const ACCENT = 0;
   const TONE = { [ACCENT]: 1 };
-  const PLASTIC = 2;
   /* a coloured sticker never drops below ";" in the ramp: in
      shadow it would otherwise be a field of dots, and the colour
      is the point of it */
@@ -213,13 +210,13 @@
               if (z < zbuf[i]) { zbuf[i] = z; chars[i] = glyph; tone[i] = t; }
             }
           };
-          plot(sticker ? RING : BODY, 0.5, "·", PLASTIC);
+          plot(sticker ? RING : BODY, 0.5, " ", 0);
           if (sticker) plot(STICKER, 0.51, ch, tint);
         }
     }
 
     /* runs of the same tone become one span, not one per cell */
-    const wrap = (t, run) => (t ? `<span class="${["", "a", "p"][t]}">${run}</span>` : run);
+    const wrap = (t, run) => (t ? `<span class="${["", "a"][t]}">${run}</span>` : run);
     let html = "";
     for (let r = 0; r < ROWS; r++) {
       let run = "", t = 0;
