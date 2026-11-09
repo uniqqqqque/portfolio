@@ -9,8 +9,8 @@
 
    There is no lighting. Each face of the cube has its own
    character, and a sticker carries that character wherever the
-   turns take it: the dotted face is dots on whichever side it
-   ends up, so the eye can follow the pieces rather than watch the
+   turns take it: the "#" face is "#" on whichever side it ends
+   up, so the eye can follow the pieces rather than watch the
    shading change.
 
    Each of the 26 visible cubies is a block of "black plastic"
@@ -76,10 +76,10 @@
      page opens, turned away from the light) is the accent one. */
   const ACCENT = 0;
   const TONE = { [ACCENT]: 1 };
-  /* one character per face, faces 0..5 = +x -x +y -y +z -z. The
-     three seen at the start keep the characters they had when the
-     cube was lit: dots on the right, "$" on top, ";" on the left */
-  const GLYPHS = ".#$=*;";
+  /* one character per face, faces 0..5 = +x -x +y -y +z -z. At
+     the start "#" is on the right (the accent face), "$" on top
+     and ";" on the left */
+  const GLYPHS = "#.$=*;";
   const cubies = [];
   for (let x = -1; x <= 1; x++)
     for (let y = -1; y <= 1; y++)
