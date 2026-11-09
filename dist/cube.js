@@ -16,9 +16,10 @@
    back of the cube from showing through the gap while a layer is
    half-turned.
 
-   The orange face is the site's accent. The other five stay in
-   ink: in characters, six colours would be noise, and one is
-   enough to watch it scatter and come back. */
+   Two faces are coloured: orange (the site's accent) and yellow,
+   on opposite sides. The other four stay in ink: in characters,
+   six colours would be noise, and two are enough to watch them
+   scatter and come back. */
 
 (() => {
   const pre = document.querySelector(".cube");
@@ -75,8 +76,16 @@
      Each has a position on the integer grid -1..1 and an
      orientation; its stickers are fixed in its own frame, so a
      turn only ever changes those two things. The hidden centre
-     cubie is left out. Face index 3 (the -x side) is orange. */
+     cubie is left out. Face index 3 (the -x side) is orange and
+     face 0 (+x, the side on the right when the page opens, turned
+     away from the light) is yellow. */
   const ORANGE = 3;
+  const YELLOW = 0;
+  const TONE = { [ORANGE]: 1, [YELLOW]: 2 };
+  /* a coloured sticker never drops below ";" in the ramp: in
+     shadow it would otherwise be a field of dots, and the colour
+     is the point of it */
+  const TINTED_MIN = 5;
   const cubies = [];
   for (let x = -1; x <= 1; x++)
     for (let y = -1; y <= 1; y++)
@@ -182,8 +191,11 @@
           if (nW[0] * (ctr[0] + b[0]) + nW[1] * (ctr[1] + b[1]) + nW[2] * (ctr[2] + b[2] + DIST) >= 0) continue;
 
           const lum = Math.max(0, nW[0] * LIGHT[0] + nW[1] * LIGHT[1] + nW[2] * LIGHT[2]);
-          const ch = RAMP[Math.min(RAMP.length - 1, Math.floor(lum * RAMP.length))];
           const sticker = outer ? c.stickers.find((k) => k.a === a && k.s === s) : null;
+          const tint = sticker ? TONE[sticker.face] ?? 0 : 0;
+          let level = Math.min(RAMP.length - 1, Math.floor(lum * RAMP.length));
+          if (tint) level = Math.max(level, TINTED_MIN);
+          const ch = RAMP[level];
 
           const plot = (pts, depth, glyph, t) => {
             for (const [u, v] of pts) {
@@ -198,20 +210,21 @@
             }
           };
           plot(sticker ? RING : BODY, 0.5, " ", 0);
-          if (sticker) plot(STICKER, 0.51, ch, sticker.face === ORANGE ? 1 : 0);
+          if (sticker) plot(STICKER, 0.51, ch, tint);
         }
     }
 
     /* runs of the same tone become one span, not one per cell */
+    const wrap = (t, run) => (t ? `<span class="${t === 1 ? "o" : "y"}">${run}</span>` : run);
     let html = "";
     for (let r = 0; r < ROWS; r++) {
       let run = "", t = 0;
       for (let col = 0; col < COLS; col++) {
         const i = r * COLS + col;
-        if (tone[i] !== t) { html += t ? `<span>${run}</span>` : run; run = ""; t = tone[i]; }
+        if (tone[i] !== t) { html += wrap(t, run); run = ""; t = tone[i]; }
         run += chars[i];
       }
-      html += (t ? `<span>${run}</span>` : run) + (r < ROWS - 1 ? "\n" : "");
+      html += wrap(t, run) + (r < ROWS - 1 ? "\n" : "");
     }
     pre.innerHTML = html;
   };
