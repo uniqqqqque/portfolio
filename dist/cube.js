@@ -126,15 +126,16 @@
   };
 
   /* ── the moves ─────────────────────────────────────────────
-     A scramble of random quarter turns (never the same axis
+     A scramble of MOVES random quarter turns (never the same axis
      twice running, so no two moves cancel or merge), then the
      same list backwards with every turn reversed: it always comes
      home. */
+  const MOVES = 8;
   let queue = [];
   const scramble = () => {
     const out = [];
     let last = -1;
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < MOVES; i++) {
       let axis;
       do axis = Math.floor(Math.random() * 3); while (axis === last);
       last = axis;
