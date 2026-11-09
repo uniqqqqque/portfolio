@@ -18,10 +18,9 @@
    face seen at an angle, where a seam comes out as a ragged empty
    stripe.
 
-   Two faces are coloured: orange (the site's accent) and yellow,
-   on opposite sides. The other four stay in ink: in characters,
-   six colours would be noise, and two are enough to watch them
-   scatter and come back. */
+   One face is coloured, in the site's accent. The other five stay
+   in ink: in characters, six colours would be noise, and one is
+   enough to watch it scatter and come back. */
 
 (() => {
   const pre = document.querySelector(".cube");
@@ -78,13 +77,11 @@
      Each has a position on the integer grid -1..1 and an
      orientation; its stickers are fixed in its own frame, so a
      turn only ever changes those two things. The hidden centre
-     cubie is left out. Face index 3 (the -x side) is orange and
-     face 0 (+x, the side on the right when the page opens, turned
-     away from the light) is yellow. */
-  const ORANGE = 3;
-  const YELLOW = 0;
-  const TONE = { [ORANGE]: 1, [YELLOW]: 2 };
-  const PLASTIC = 3;
+     cubie is left out. Face 0 (+x: the side on the right when the
+     page opens, turned away from the light) is the accent one. */
+  const ACCENT = 0;
+  const TONE = { [ACCENT]: 1 };
+  const PLASTIC = 2;
   /* a coloured sticker never drops below ";" in the ramp: in
      shadow it would otherwise be a field of dots, and the colour
      is the point of it */
@@ -222,7 +219,7 @@
     }
 
     /* runs of the same tone become one span, not one per cell */
-    const wrap = (t, run) => (t ? `<span class="${["", "o", "y", "p"][t]}">${run}</span>` : run);
+    const wrap = (t, run) => (t ? `<span class="${["", "a", "p"][t]}">${run}</span>` : run);
     let html = "";
     for (let r = 0; r < ROWS; r++) {
       let run = "", t = 0;

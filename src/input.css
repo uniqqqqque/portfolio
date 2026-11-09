@@ -154,14 +154,9 @@ a:focus-visible {
   user-select: none;
 }
 
-/* the two coloured faces: orange is the accent; yellow is its
-   own, pale enough to tell from the accent's amber at a glance */
-.cube .o {
+/* the one coloured face, in the accent */
+.cube .a {
   color: var(--accent);
-}
-
-.cube .y {
-  color: #f4e04d;
 }
 
 /* the black plastic between stickers: just above the ground, so
