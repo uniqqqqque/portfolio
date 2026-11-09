@@ -358,14 +358,16 @@ a:focus-visible {
 
 /* ══ Spring mouse follow ═══════════════════════════════════
    After Skiper UI (skiper61, SpringMouseFollow) — see cursor.js.
-   Its top-left corner sits on the pointer, as in the original, so
-   it trails below and to the right and never covers the arrow's
-   tip. It is the site's accent rather than Tailwind's orange-500,
+   Centred on the pointer (the negative margins), not hung off it
+   by its corner as in the original. The system arrow is always
+   drawn above the page, so it stays visible in the middle of the
+   dot. It is the site's accent rather than Tailwind's orange-500,
    and it is never in the way of a click. */
 .follow-dot {
   position: fixed;
   top: 0;
   left: 0;
+  margin: -1.25rem 0 0 -1.25rem;
   z-index: 50;
   width: 2.5rem;
   height: 2.5rem;

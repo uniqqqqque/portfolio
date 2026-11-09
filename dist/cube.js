@@ -34,15 +34,15 @@
      its horizontal diagonal (about 4.3 units), so at SCALE columns
      per unit it spins without touching the sides; ROWS leaves room
      for the tilt. */
-  const COLS = 56;
-  const ROWS = 34;
+  const COLS = 72;
+  const ROWS = 44;
   const ASPECT = 0.6 / 1.1;
   const DIST = 11; /* camera distance, in cubie widths */
-  const SCALE = 11.5 * DIST; /* columns per unit at the cube's centre */
+  const SCALE = 14.8 * DIST; /* columns per unit at the cube's centre */
   const RAMP = ".,-~:;=!*#$@";
   /* point spacing on a face: under half a cell at this scale, so
      a face never shows holes */
-  const STEP = 0.04;
+  const STEP = 0.03;
   const LIGHT = norm([-0.45, 0.65, -0.6]);
 
   function norm(v) {
@@ -98,14 +98,14 @@
     return pts;
   };
   const BODY = grid(0.5);
-  const STICKER = grid(0.4);
+  const STICKER = grid(0.44);
   /* under a sticker the plastic is never seen, and drawing it
      anyway makes the two fight: on a face seen edge-on, a plastic
      point nearer the camera along the face wins a cell from the
      sticker point beside it, and the sticker comes out full of
      holes. So an outer face draws only the ring of plastic
      around its sticker. */
-  const RING = BODY.filter(([u, v]) => Math.max(Math.abs(u), Math.abs(v)) > 0.4 + 1e-9);
+  const RING = BODY.filter(([u, v]) => Math.max(Math.abs(u), Math.abs(v)) > 0.44 + 1e-9);
   /* the point (u, v) on the face of axis a, side s, at depth d */
   const facePoint = (a, s, d, u, v) => {
     const p = [0, 0, 0];
