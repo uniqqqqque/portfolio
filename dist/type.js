@@ -61,7 +61,13 @@
     if (i < letters.length) setTimeout(key, KEY_MS);
     else {
       caret.classList.add("type-done");
-      caret.addEventListener("animationend", () => caret.remove(), { once: true });
+      caret.addEventListener("animationend", () => {
+        caret.remove();
+        /* the caret is gone: tell whoever is waiting for the name
+           to finish (the eyes greet after this) */
+        h1.dataset.typed = "";
+        h1.dispatchEvent(new Event("name-typed"));
+      }, { once: true });
     }
   };
   setTimeout(key, START_MS);

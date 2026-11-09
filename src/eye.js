@@ -237,11 +237,16 @@
   ball?.addEventListener("click", poke);
 
   /* ── and it says hello first ────────────────────────────────
-     One second after the page is up, before anyone pokes it, it
-     types "Welcome" once on its own. Counted from now (the page
-     has been parsed when a deferred script runs), not from the
-     window's load event: that waits for every other script too,
-     the analytics one included, and a slow one would hold the
-     greeting back. */
-  setTimeout(() => speak("Welcome"), 1000);
+     Before anyone pokes it, it types "Welcome!" once on its own —
+     but only once the name above has finished typing and its caret
+     has gone, so the two are never typing at the same time.
+     type.js marks the name with `.typing` while it works and fires
+     "name-typed" when the caret is gone (it runs first, the scripts
+     are deferred in order). If the name is not being typed at all
+     (reduced motion, or type.js missing), it greets after a second. */
+  const GREETING = "Welcome!";
+  const name = document.querySelector(".hero__name");
+  if (name?.classList.contains("typing") && !("typed" in name.dataset))
+    name.addEventListener("name-typed", () => setTimeout(() => speak(GREETING), 150), { once: true });
+  else setTimeout(() => speak(GREETING), 1000);
 })();
