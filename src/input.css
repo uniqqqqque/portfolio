@@ -107,6 +107,11 @@ a:focus-visible {
   visibility: hidden;
 }
 
+/* a word never breaks inside, whatever the caret is doing in it */
+.type-word {
+  white-space: nowrap;
+}
+
 /* the caret has no width, so moving it along never moves a
    letter; the bar hangs off its left edge */
 .type-caret {
