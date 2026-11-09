@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @source not "./favicon.svg";
 @source not "../dist";
+@source not "./eye.js";
 
 /* IBM Plex Sans, subset to Latin + Latvian, renamed per OFL (fonts/OFL.txt) */
 @font-face {
@@ -67,12 +68,16 @@ a:focus-visible {
 
 /* hero */
 .hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.75rem, 2vw, 2rem);
   padding-top: clamp(4rem, 14vh, 9rem);
   padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
 }
 
 .hero__name {
-  font-size: clamp(3.5rem, 13.3vw, 16rem);
+  font-size: clamp(3.5rem, 11vw, 16rem);
   font-weight: 600;
   line-height: 0.92;
   letter-spacing: -0.045em;
@@ -149,6 +154,110 @@ a:focus-visible {
   transform: scale(0.995);
 }
 
+/* ══ Eye tracker ═══════════════════════════════════════════
+   After Bencho's "Eye tracker" (MIT, bencho.dev/licence); the
+   motion is in eye.js. Bencho's tokens are mapped onto this
+   site's own, locally on the component's root so nothing leaks:
+     --fill-slab → --surface   the ball: the "Dark" fill, a slab
+                               lifted off the ground like the link
+                               rows
+     --fill-on   → --ink       the eyes
+     the bubble's tints (blue / green / pink) → --accent, the one
+     colour this page has; --font-ui → the body font, inherited.
+   The frame is the ball itself, not Bencho's 200px stage: here
+   it sits in the hero next to the name, not on a wall. */
+.eyt {
+  --eyt-size: clamp(3.5rem, 12.5vw, 180px);
+  --eyt-body: var(--surface);
+  --eyt-eye: var(--ink);
+  --eyt-tint: var(--accent);
+  --eyt-on-tint: var(--on-accent);
+
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+}
+
+.eyt-ball {
+  width: var(--eyt-size);
+  height: var(--eyt-size);
+  overflow: visible;
+}
+
+/* the ball is the Fill's own slab and the eyes its ink: on this
+   page's dark ground, a lifted dark body with light eyes */
+.eyt-body {
+  fill: var(--eyt-body);
+}
+
+.eyt-eye {
+  fill: var(--eyt-eye);
+}
+
+/* a press gives a little under the finger and springs back out */
+.eyt-ball {
+  cursor: pointer;
+  transform-origin: center;
+  transition: scale 420ms cubic-bezier(0.24, 1.34, 0.38, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.eyt-ball:active {
+  scale: 0.96;
+  transition-duration: 160ms;
+  transition-timing-function: ease;
+}
+
+/* a press opens a chat bubble off its lower LEFT, its square
+   corner pointing back at the face. Bencho opens it to the right;
+   here the ball sits at the page's right margin, and a bubble on
+   that side would push the page into a horizontal scroll */
+.eyt-say {
+  position: absolute;
+  right: calc(50% + var(--eyt-size) * 0.36);
+  top: calc(50% + var(--eyt-size) * 0.3);
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 34px;
+  padding: 0 16px;
+  border-radius: 14px 6px 14px 14px;
+  background: var(--eyt-tint);
+  box-shadow: inset 0 -1.5px 0 rgba(0, 0, 0, 0.1);
+  color: var(--eyt-on-tint);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transform-origin: top right;
+  opacity: 0;
+  scale: 0.85;
+  pointer-events: none;
+  transition:
+    opacity 160ms ease,
+    scale 220ms cubic-bezier(0.24, 1.34, 0.38, 1);
+}
+
+.eyt-say[data-on] {
+  opacity: 1;
+  scale: 1;
+}
+
+.eyt-caret {
+  width: 1.5px;
+  height: 13px;
+  border-radius: 1px;
+  background: var(--eyt-on-tint);
+  animation: eyt-caret 1s steps(1) infinite;
+}
+
+@keyframes eyt-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
 /* footer */
 .footer {
   margin-top: auto;
@@ -206,7 +315,9 @@ a:focus-visible {
   }
   .link-row,
   .link-row__arrow,
-  .link-row__handle {
+  .link-row__handle,
+  .eyt-ball,
+  .eyt-say {
     transition: none;
   }
 }
@@ -219,6 +330,11 @@ a:focus-visible {
   }
   .hero__lead {
     margin-bottom: 2.5rem;
+  }
+  /* the name breaks onto two lines here; the ball stands beside
+     both, sized so "Poliščuks" still fits next to it at 320px */
+  .eyt {
+    --eyt-size: min(5.5rem, 17vw);
   }
   .link-row {
     grid-template-columns: 1fr auto;

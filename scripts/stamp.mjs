@@ -1,8 +1,8 @@
-// nginx serves css/svg with a 30-day immutable cache, so asset URLs carry a content hash
+// nginx serves css/svg/js with a 30-day immutable cache, so asset URLs carry a content hash
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 
-const assets = ["output.css", "favicon.svg"];
+const assets = ["output.css", "favicon.svg", "eye.js"];
 
 const hash = (file) =>
   createHash("sha256").update(readFileSync(`dist/${file}`)).digest("hex").slice(0, 8);
