@@ -212,13 +212,11 @@
   let lastLine = -1;
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  const poke = async () => {
+  /* types one line into the bubble, holds it, folds it away; a
+     newer line cuts an older one short */
+  const speak = async (line) => {
     if (!say || !sayText) return;
     const mine = ++turn;
-    const pool = LINES.map((_, i) => i).filter((i) => i !== lastLine);
-    const i = pool[Math.floor(Math.random() * pool.length)];
-    lastLine = i;
-    const line = LINES[i];
     sayText.textContent = "";
     say.dataset.on = "";
     for (let k = 1; k <= line.length; k++) {
@@ -230,5 +228,20 @@
     if (mine !== turn) return;
     delete say.dataset.on;
   };
+  const poke = () => {
+    const pool = LINES.map((_, i) => i).filter((i) => i !== lastLine);
+    const i = pool[Math.floor(Math.random() * pool.length)];
+    lastLine = i;
+    speak(LINES[i]);
+  };
   ball?.addEventListener("click", poke);
+
+  /* ── and it says hello first ────────────────────────────────
+     One second after the page is up, before anyone pokes it, it
+     types "Welcome" once on its own. Counted from now (the page
+     has been parsed when a deferred script runs), not from the
+     window's load event: that waits for every other script too,
+     the analytics one included, and a slow one would hold the
+     greeting back. */
+  setTimeout(() => speak("Welcome"), 1000);
 })();
