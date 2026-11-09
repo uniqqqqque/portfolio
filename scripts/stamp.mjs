@@ -2,7 +2,7 @@
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 
-const assets = ["output.css", "favicon.svg", "eye.js"];
+const assets = ["output.css", "favicon.svg", "eye.js", "links.js", "cursor.js", "cube.js", "type.js"];
 
 const hash = (file) =>
   createHash("sha256").update(readFileSync(`dist/${file}`)).digest("hex").slice(0, 8);

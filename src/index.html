@@ -26,12 +26,19 @@
       crossorigin
     />
     <link href="output.css" rel="stylesheet" />
+    <!-- lets the name stay hidden until type.js types it, instead of flashing in full first -->
+    <script>document.documentElement.classList.add("js");</script>
+    <script defer src="type.js"></script>
     <script defer src="eye.js"></script>
+    <script defer src="links.js"></script>
+    <!-- spring mouse follow after Skiper UI (skiper-ui.com, skiper61) -->
+    <script defer src="cursor.js"></script>
+    <script defer src="cube.js"></script>
   </head>
   <body>
     <main>
       <header class="hero">
-        <h1 class="hero__name rise">Deniss Poliščuks</h1>
+        <h1 class="hero__name">Deniss Poliščuks</h1>
         <!-- eye tracker, after Bencho (MIT, bencho.dev/licence); moved by eye.js -->
         <div class="eyt rise" style="--i: 1" aria-hidden="true">
           <svg class="eyt-ball" viewBox="0 0 100 100">
@@ -60,9 +67,7 @@
       </header>
 
       <section class="links grid-12" aria-label="Links">
-        <p class="hero__lead rise" style="--i: 1">
-          I build websites, teach, and study at Rīgas Tehniskā koledža.
-        </p>
+        <pre class="cube rise" style="--i: 1" role="img" aria-label="A Rubik's cube drawn in ASCII characters, turning and solving itself"></pre>
         <ul class="links__list section-body" role="list">
           <li class="rise" style="--i: 2">
             <a class="link-row" href="https://github.com/uniqqqqque" rel="me">

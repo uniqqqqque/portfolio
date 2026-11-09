@@ -2,6 +2,10 @@
 @source not "./favicon.svg";
 @source not "../dist";
 @source not "./eye.js";
+@source not "./links.js";
+@source not "./cursor.js";
+@source not "./cube.js";
+@source not "./type.js";
 
 /* IBM Plex Sans, subset to Latin + Latvian, renamed per OFL (fonts/OFL.txt) */
 @font-face {
@@ -84,12 +88,74 @@ a:focus-visible {
   margin-left: -0.05em;
 }
 
-.hero__lead {
+/* ══ Typing the name ═══════════════════════════════════════
+   See type.js. Until the script has taken the name over it stays
+   hidden, so it does not flash in full and then start typing; if
+   the script never arrives, it shows anyway after 1.2s. */
+.js .hero__name:not(.typing) {
+  visibility: hidden;
+  animation: type-fallback 0s 1.2s forwards;
+}
+
+@keyframes type-fallback {
+  to {
+    visibility: visible;
+  }
+}
+
+.type-off {
+  visibility: hidden;
+}
+
+/* the caret has no width, so moving it along never moves a
+   letter; the bar hangs off its left edge */
+.type-caret {
+  position: relative;
+  display: inline-block;
+  width: 0;
+}
+
+.type-caret::after {
+  content: "";
+  position: absolute;
+  left: 0.03em;
+  bottom: -0.02em;
+  width: 0.07em;
+  height: 0.78em;
+  background: var(--accent);
+}
+
+/* done: blinks twice and goes */
+.type-caret.type-done {
+  animation: type-blink 1.1s steps(1) forwards;
+}
+
+@keyframes type-blink {
+  0%, 50% { opacity: 1; }
+  25%, 75%, 100% { opacity: 0; }
+}
+
+/* ══ ASCII Rubik's cube ════════════════════════════════════
+   See cube.js. Sits where the line of text under the name was.
+   The grid is 72 characters by 44 lines; the font size is set
+   so that 72 monospace cells (about 0.6em each) fill the four
+   columns it has, and the line height matches the ASPECT the
+   script projects with. */
+.cube {
   grid-column: 1 / span 4;
-  max-width: 22ch;
-  font-size: clamp(1.375rem, 2.2vw, 2rem);
-  line-height: 1.3;
-  letter-spacing: -0.01em;
+  align-self: start;
+  margin: 0;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.68vw;
+  line-height: 1.1;
+  color: var(--ink);
+  white-space: pre;
+  overflow: hidden;
+  user-select: none;
+}
+
+.cube span {
+  color: var(--accent);
 }
 
 /* links */
@@ -152,6 +218,38 @@ a:focus-visible {
 
 .link-row:active {
   transform: scale(0.995);
+}
+
+/* ══ Link accordion ════════════════════════════════════════
+   After Bencho's "Image accordion" (MIT, bencho.dev/licence),
+   on its side: the rows open in height under the pointer. The
+   arithmetic of who pays is in links.js — six grow numbers on
+   six springs — and what is here is the box they negotiate
+   inside. `.acc` is only added by the script, after it has held
+   the list at its own resting height. */
+.links__list.acc > li {
+  /* ── the grow number is the WHOLE story ──────────────────
+     `flex-basis: 0` so nothing is reserved before the
+     negotiation starts — with `auto` the rows' own heights get
+     a vote and the grow numbers only divide what is left over.
+
+     And `min-height: 0`, which is the one that bites: a flex
+     item will not shrink below its content by default, so the
+     rows paying for the open one would stop shrinking and the
+     list would overflow its own height. */
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+/* the row fills its share and keeps its content in the middle:
+   the padding that gave it height at rest is now the share
+   itself, so at rest it looks exactly as before. `overflow` on
+   the row, not on the item, so the focus ring is not clipped */
+.links__list.acc .link-row {
+  height: 100%;
+  padding-block: 0;
+  align-content: center;
+  overflow: hidden;
 }
 
 /* ══ Eye tracker ═══════════════════════════════════════════
@@ -258,6 +356,27 @@ a:focus-visible {
   }
 }
 
+/* ══ Spring mouse follow ═══════════════════════════════════
+   After Skiper UI (skiper61, SpringMouseFollow) — see cursor.js.
+   Its top-left corner sits on the pointer, as in the original, so
+   it trails below and to the right and never covers the arrow's
+   tip. It is the site's accent rather than Tailwind's orange-500,
+   and it is never in the way of a click. */
+.follow-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 2rem;
+  background: var(--accent);
+  opacity: 0;
+  transform: scale(0);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
 /* footer */
 .footer {
   margin-top: auto;
@@ -313,6 +432,10 @@ a:focus-visible {
   .rise {
     animation: none;
   }
+  .js .hero__name:not(.typing) {
+    visibility: visible;
+    animation: none;
+  }
   .link-row,
   .link-row__arrow,
   .link-row__handle,
@@ -325,11 +448,12 @@ a:focus-visible {
 /* phone */
 @media (max-width: 760px) {
   .section-body,
-  .hero__lead {
+  .cube {
     grid-column: 1 / -1;
   }
-  .hero__lead {
+  .cube {
     margin-bottom: 2.5rem;
+    font-size: calc((100vw - 2 * var(--margin)) / 72 / 0.6);
   }
   /* the name breaks onto two lines here; the ball stands beside
      both, sized so "Poliščuks" still fits next to it at 320px */
